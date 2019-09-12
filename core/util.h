@@ -7,7 +7,7 @@
 #ifndef util_h
 #define util_h
 
-#include <core/mem.h>
+#include "../core/mem.h"
 #include <stdio.h>
 #include <stdarg.h>
 #include <stdint.h>

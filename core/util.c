@@ -78,7 +78,10 @@ unsigned long djb2(unsigned char *str) {
 
 char* readFile(const char* path) {
     FILE* file = fopen(path, "rb");
-    if(!file) return 0;
+    if(!file){
+        printf("Could not open file \"%s\".\n", path);
+        return 0;
+    }
 
     // Get the size of the file
     fseek(file, 0, SEEK_END);

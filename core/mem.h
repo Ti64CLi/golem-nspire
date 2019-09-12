@@ -29,7 +29,7 @@ static int frees = 0;
 #ifdef __MINGW32__
     #define ptr_size _msize
 #else
-    #define ptr_size malloc_usable_size
+    #define ptr_size /*malloc_usable_size*/ sizeof
 #endif
 
 void mem_error(const char* format, ...) {
