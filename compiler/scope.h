@@ -9,8 +9,8 @@
 #ifndef scope_h
 #define scope_h
 
-#include <parser/ast.h>
-#include <adt/hashmap.h>
+#include "../parser/ast.h"
+#include "../adt/hashmap.h"
 
 /**
  * A symbol is an info for the compiler.

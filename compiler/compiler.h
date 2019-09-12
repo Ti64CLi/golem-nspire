@@ -12,13 +12,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <core/mem.h>
-#include <core/util.h>
-#include <parser/parser.h>
-#include <parser/types.h>
-#include <vm/bytecode.h>
-#include <compiler/scope.h>
-#include <lib/native.h>
+#include "../core/mem.h"
+#include "../core/util.h"
+#include "../parser/parser.h"
+#include "../parser/types.h"
+#include "../vm/bytecode.h"
+#include "../compiler/scope.h"
+#include "../lib/native.h"
 
 typedef struct compiler_t {
     context_t* context;

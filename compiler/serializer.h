@@ -9,8 +9,8 @@
 
 #include <stdbool.h>
 #include <stdio.h>
-#include <adt/vector.h>
-#include <vm/bytecode.h>
+#include "../adt/vector.h"
+#include "../vm/bytecode.h"
 
 /**
  * File format description:

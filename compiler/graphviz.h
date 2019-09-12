@@ -11,7 +11,7 @@
 
 #include <stdio.h>
 #include <stdarg.h>
-#include <parser/ast.h>
+#include "../parser/ast.h"
 
 typedef struct {
     FILE* fp;

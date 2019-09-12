@@ -14,7 +14,7 @@ void compiler_clear(compiler_t* compiler);
 void compiler_throw(compiler_t* compiler, ast_t* node, const char* format, ...) {
     compiler->error = true;
     location_t loc = node->location;
-    printf("%s:%d:%d (Semantic): ", compiler->parser->name, loc.line, loc.column);
+    printf("Error in file %s at line %d column %d\n(Semantic): ", compiler->parser->name, loc.line, loc.column);
     va_list argptr;
     va_start(argptr, format);
     vfprintf(stdout, format, argptr);
