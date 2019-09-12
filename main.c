@@ -4,32 +4,40 @@
  */
 
 #include <stdio.h>
+#include <errno.h>
 #include <stdlib.h>
+#include <dirent.h>
+#include <libndls.h>
+
 #include <string.h>
 #include <assert.h>
 
 #define USE_MEM_IMPLEMENTATION
-#include <core/mem.h>
-#include <core/util.h>
-#include <parser/ast.h>
-#include <parser/parser.h>
-#include <parser/types.h>
-#include <vm/vm.h>
-#include <compiler/compiler.h>
-#include <compiler/serializer.h>
-#include <compiler/graphviz.h>
+#include "core/mem.h"
+#include "core/util.h"
+#include "parser/ast.h"
+#include "parser/parser.h"
+#include "parser/types.h"
+#include "vm/vm.h"
+#include "compiler/compiler.h"
+#include "compiler/serializer.h"
+#include "compiler/graphviz.h"
 
 void print_info(void) {
-    printf("Golem compiler\n");
-    printf("Copyright (c) Alexander Koch 2016\n\n");
-    printf("Usage:\n");
+    printf("Golem compiler / Nspire port v1.0\n");
+    printf("Copyright (c) Alexander Koch 2016\nNspire port by Ti64CLi++\n\n");
+    /*printf("Usage:\n");
     printf("  golem <file>       (Run a file)\n");
     printf("  golem -r <file>    (Run a *.gvm file)\n");
     printf("  golem -c <file>    (Convert to bytecode file *.gvm)\n");
-    printf("  golem --ast <file> (Convert generated AST to graph *.dot)\n");
+    printf("  golem --ast <file> (Convert generated AST to graph *.dot)\n");*/
+    printf("Golem is now installed.\nYou will need to install it again after every reboot though.\nYou can now execute .gs file directly by open them.\n");
 }
 
 int main(int argc, char** argv) {
+    //register .gs file as golem file
+    cfg_register_fileext("gs","golem");
+
     seed_prng(time(0));
     vm_t vm = {0};
 
@@ -46,7 +54,7 @@ int main(int argc, char** argv) {
             vector_t* buffer = compile_file(argv[2]);
             if(buffer) {
                 // Write to file
-                char* out = replaceExt(argv[2], ".gvm", 4);
+                char* out = replaceExt(argv[2], ".gvm.tns", 4);
                 serialize(out, buffer);
                 printf("Wrote bytecode to file '%s'\n", out);
                 free(out);
@@ -89,5 +97,8 @@ int main(int argc, char** argv) {
 #ifndef NO_MEMINFO
     mem_leak_check();
 #endif
+    printf("\nPress any key to exit...\n");
+    wait_key_pressed();
+    
     return 0;
 }

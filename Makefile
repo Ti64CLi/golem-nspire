@@ -1,10 +1,12 @@
 # Makefile for the golem programming language
 # @Author Alexander Koch 2016
-CC := gcc
+CC := nspire-gcc
+LD := nspire-ld
 MODULE_EXEC := golem
 MODULE_IR := golem-ir
 INC := -I.
 PREFIX := /usr/local
+EXE := golem
 
 # Run `make DEBUG=1` to build the debug version
 
@@ -26,7 +28,8 @@ PREFIX := /usr/local
 
 # C - compiler flags :: use c99
 CFLAGS := -std=c99 -Wall -Wextra -Wno-unused-function -Wno-unused-parameter
-LDFLAGS := -lm
+LDFLAGS := -Wl,--nspireio,--gc-sections
+ZEHNFLAGS = --name "colors"
 
 DEBUG ?= 0
 ifeq ($(DEBUG), 1)
@@ -62,8 +65,13 @@ OBJ := $(FILES:.c=.o)
 OBJECTS := $(addprefix $(OBJDIR)/, $(notdir $(OBJ)))
 
 # Main executable
-all: $(OBJDIR) $(OBJ) main.o
-	@$(CC) $(LDFLAGS) $(OBJECTS) $(OBJDIR)/main.o -o $(MODULE_EXEC)
+all: $(EXE)
+	genzehn --input $(EXE) --output $(EXE).tns $(ZEHNFLAGS)
+
+#$(EXE): $(OBJDIR) $(OBJ) main.o
+#	@$(CC) $(CFLAGS) $(OBJECTS) $(OBJDIR)/main.o -o $(MODULE_EXEC) $(LDFLAGS)
+$(EXE): $(OBJDIR) $(OBJ) main.o
+	@$(CC) $(CFLAGS) $(OBJECTS) $(OBJDIR)/main.o -o $(MODULE_EXEC) $(LDFLAGS)
 
 # Immediate representation tool / print .gvm bytecode
 ir: $(OBJDIR) $(OBJ)
@@ -72,11 +80,11 @@ ir: $(OBJDIR) $(OBJ)
 	@$(CC) $(LDFLAGS) $(OBJECTS) $(OBJDIR)/ir.o -o $(MODULE_IR)
 
 clean:
-	rm -f $(OBJDIR)/*.o
+	rm -f */*.o
 
 %.o: %.c
 	@echo $<
-	@$(CC) $(CFLAGS) $(INC) -c $< -o $(OBJDIR)/$(notdir $@)
+	@$(CC) $(CFLAGS) $(INC) -c $< -o $(OBJDIR)/$(notdir $@) $(LDFLAGS)
 
 $(OBJDIR):
 	@test -d $@ || mkdir $@
