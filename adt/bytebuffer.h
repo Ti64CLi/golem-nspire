@@ -7,7 +7,7 @@
 #define bytebuffer_h
 
 #include <stdint.h>
-#include <core/mem.h>
+#include "../core/mem.h"
 
 typedef struct {
     uint8_t* data;

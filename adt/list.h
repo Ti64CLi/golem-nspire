@@ -8,7 +8,7 @@
 #define list_h
 
 #include <assert.h>
-#include <core/mem.h>
+#include "../core/mem.h"
 
 typedef struct list_node_t {
     struct list_node_t* next;

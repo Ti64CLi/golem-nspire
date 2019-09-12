@@ -10,7 +10,7 @@
 #include <stddef.h>
 #include <stdbool.h>
 #include <string.h>
-#include <core/mem.h>
+#include "../core/mem.h"
 
 // Tags for return codes
 #define HMAP_MISSING -3
