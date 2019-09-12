@@ -14,10 +14,10 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <ctype.h>
-#include <core/mem.h>
-#include <core/util.h>
-#include <adt/vector.h>
-#include <adt/bytebuffer.h>
+#include "../core/mem.h"
+#include "../core/util.h"
+#include "../adt/vector.h"
+#include "../adt/bytebuffer.h"
 
 // Location in file / code location
 typedef struct {

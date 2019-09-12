@@ -60,7 +60,7 @@ const char* token_string(token_type_t type) {
 
 void lex_error(lexer_t* lexer, const char* err) {
     lexer->error = 1;
-    printf("%s:%d:%d (Lexis): %s\n", lexer->name, lexer->location.line, lexer->location.column, err);
+    printf("Error in file %s at line %d column %d\n(Lexis): %s\n", lexer->name, lexer->location.line, lexer->location.column, err);
 }
 
 #define RESERVED_ENTRY(w, t) {w, sizeof(w) - 1, t}
