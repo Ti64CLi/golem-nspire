@@ -18,7 +18,7 @@ bool val_is_int32(val_t val) {
     return data.bits32[1] == 0;
 }
 
-val_t val_of_int32(int i) {
+val_t val_of_int32(int32_t i) {
     doublebits_t data;
     data.bits32[0] = i;
     data.bits32[1] = 0;
@@ -213,22 +213,27 @@ char* val_tostr(val_t v1) {
 
 void val_print(val_t v1) {
     if(IS_INT32(v1)) {
+        //printf("Currently displaying an INT32...\n");
         printf("%d", AS_INT32(v1));
     }
     else if(IS_NUM(v1)) {
+        //printf("Currently displaying a NUM...\n");
         printf("%f", AS_NUM(v1));
     }
     else if(IS_BOOL(v1)) {
+        //printf("Currently displaying a BOOL...\n");
         printf("%s", AS_BOOL(v1) ? "true" : "false");
     }
     else if(IS_OBJ(v1)) {
         obj_t* obj = AS_OBJ(v1);
         switch(obj->type) {
             case OBJ_STRING: {
+                //printf("Currently displaying a STRING...\n");
                 printf("%s", (char*)obj->data);
                 break;
             }
             case OBJ_ARRAY: {
+                //printf("Currently displaying an ARRAY...\n");
                 obj_array_t* arr = obj->data;
                 putchar('[');
                 for(size_t i = 0; i < arr->len; i++) {
@@ -240,6 +245,7 @@ void val_print(val_t v1) {
                 break;
             }
             case OBJ_CLASS: {
+                //printf("Currently displaying a CLASS...\n");
                 printf("class<%x>", (unsigned int)v1);
                 break;
             }

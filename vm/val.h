@@ -11,8 +11,8 @@
 
 #include <stdint.h>
 #include <stdbool.h>
-#include <core/mem.h>
-#include <core/util.h>
+#include "../core/mem.h"
+#include "../core/util.h"
 
 // NaN (Not a Number) Tagging Introduction:
 // ------------------------

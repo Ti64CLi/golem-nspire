@@ -19,11 +19,11 @@
 #ifndef bytecode_h
 #define bytecode_h
 
-#include <core/mem.h>
-#include <lexis/lexer.h>
-#include <adt/vector.h>
-#include <parser/ast.h>
-#include <vm/val.h>
+#include "../core/mem.h"
+#include "../lexis/lexer.h"
+#include "../adt/vector.h"
+#include "../parser/ast.h"
+#include "../vm/val.h"
 
 typedef enum {
     // Basic stack

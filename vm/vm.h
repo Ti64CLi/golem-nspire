@@ -14,13 +14,13 @@
 #include <assert.h>
 #include <stdint.h>
 
-#include <adt/vector.h>
-#include <adt/hashmap.h>
+#include "../adt/vector.h"
+#include "../adt/hashmap.h"
 
-#include <vm/val.h>
-#include <vm/bytecode.h>
-#include <lib/libdef.h>
-#include <lib/native.h>
+#include "../vm/val.h"
+#include "../vm/bytecode.h"
+#include "../lib/libdef.h"
+#include "../lib/native.h"
 
 #define STACK_SIZE 512
 
