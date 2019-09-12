@@ -2,7 +2,7 @@
 // Copyright (C) 2017 Alexander Koch
 
 #include "libdef.h"
-#include <vm/vm.h>
+#include "../vm/vm.h"
 #include <time.h>
 extern float strtof(const char* str, char** endptr);
 
@@ -48,7 +48,7 @@ void core_break(vm_t* vm) {
 }
 
 void core_clock(vm_t* vm) {
-	double clocktime = (double)clock() / (double)CLOCKS_PER_SEC;
+	int clocktime = (int)(*(unsigned int*)0x90090000);
     vm_push(vm, NUM_VAL(clocktime));
 }
 

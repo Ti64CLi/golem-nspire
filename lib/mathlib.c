@@ -3,8 +3,8 @@
 
 #include "libdef.h"
 #include <math.h>
-#include <core/util.h>
-#include <vm/vm.h>
+#include "../core/util.h"
+#include "../vm/vm.h"
 
 extern int corelib_fn_count;
 #define INDEX(idx) (corelib_fn_count + idx)

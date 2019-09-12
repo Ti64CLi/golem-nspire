@@ -2,8 +2,8 @@
 // Copyright (C) 2017 Alexander Koch
 
 #include "libdef.h"
-#include <vm/vm.h>
-#include <core/util.h>
+#include "../vm/vm.h"
+#include "../core/util.h"
 
 extern int corelib_fn_count;
 extern int mathlib_fn_count;

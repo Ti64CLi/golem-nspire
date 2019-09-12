@@ -20,9 +20,9 @@ Helper functions for standard libraries
 #endif
 
 // Main stuff
-#include <parser/ast.h>
-#include <parser/types.h>
-#include <vm/val.h>
+#include "../parser/ast.h"
+#include "../parser/types.h"
+#include "../vm/val.h"
 
 #define signature_new() location_t loc = {0, 0}
 
