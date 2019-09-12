@@ -13,11 +13,11 @@
 #include <assert.h>
 #include <stdarg.h>
 
-#include <core/mem.h>
-#include <lexis/lexer.h>
-#include <parser/ast.h>
-#include <parser/types.h>
-#include <adt/vector.h>
+#include "../core/mem.h"
+#include "../lexis/lexer.h"
+#include "../parser/ast.h"
+#include "../parser/types.h"
+#include "../adt/vector.h"
 
 /**
  * # Parser structure

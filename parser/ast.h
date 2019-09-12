@@ -14,11 +14,11 @@
 #include <stddef.h>
 #include <stdbool.h>
 
-#include <lexis/lexer.h>
-#include <adt/list.h>
-#include <core/mem.h>
-#include <adt/hashmap.h>
-#include <parser/types.h>
+#include "../lexis/lexer.h"
+#include "../adt/list.h"
+#include "../core/mem.h"
+#include "../adt/hashmap.h"
+#include "../parser/types.h"
 
 typedef struct ast_s ast_t;
 

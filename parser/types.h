@@ -9,9 +9,9 @@
 
 #include <stdio.h>
 #include <stdbool.h>
-#include <adt/hashmap.h>
-#include <adt/vector.h>
-#include <core/mem.h>
+#include "../adt/hashmap.h"
+#include "../adt/vector.h"
+#include "../core/mem.h"
 
 typedef enum {
     DATA_NULL,
