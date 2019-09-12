@@ -1,0 +1,77 @@
+# Simple brainf interpreter
+# Copyright (c) Alexander Koch 2015
+# Completed by Ti64CLi++
+using core
+using io
+
+# Define tape and an index
+let mut tape = [0]
+let mut arr = [0]
+let mut d = 0
+let mut idx = 0
+let mut i = 0
+
+#Convert ASCII code to ASCII char
+func ascii(code: int) -> char {
+	let asciicode = "                               !  #$%& ()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[ ]^_`abcdefghijklmnopqrstuvwxyz{|}~"
+	return asciicode[code-2]
+}
+
+# Process an input character
+func process(c: char) {
+	if c = "+" {
+		tape[idx] := tape[idx] + 1
+	} else if c = "-" {
+		tape[idx] := tape[idx] - 1
+	} else if c = ">" {
+		idx := idx + 1
+
+		# Allocate more tape if needed
+		if idx > tape.length() - 1 {
+			tape := tape.add(0)
+		}
+	} else if c = "<" {
+		idx := idx - 1
+	} else if c = "." {
+		print(ascii(tape[idx]))
+	} else if c = "[" {
+		arr[d] := i
+		d := d + 1
+		if d > arr.length() - 1 {
+			arr := arr.add(0)
+		}
+	} else if c = "]" {
+		if tape[idx] = 0 {
+			d := d - 1
+			arr[d] := 0
+		} else {
+			i := arr[d-1] - 1
+		}
+	} else {
+		# Invalid operation
+		# Note: Newline and carriage return will end up here
+	}
+}
+
+# The interpreter
+func eval(filename: str) {
+	let file = File(filename)
+	let content = file.read()
+	let len = content.length()
+
+	# Display file content
+	println(content)
+	println(len)
+
+	# Wait until a key is pressed
+	break()
+
+	# Process the tape
+	while i < len {
+		process(content[i])
+		i := i + 1
+	}
+}
+
+# Run the interpreter
+eval("/documents/golem/main.bf.tns")
