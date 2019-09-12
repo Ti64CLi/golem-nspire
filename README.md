@@ -1,4 +1,4 @@
-# Golem
+# Golem for Nspire
 
 Golem is a statically typed, object-oriented programming language.
 
@@ -39,24 +39,24 @@ println("Elapsed: $elapsed")
 
 # Installing
 
-Golem is written in C99, and has been tested to run on Linux and Windows.
+Golem is written in C99, and has been tested to run on Linux, Windows and Nspire.
 A Makefile is used to build the compiler.
 
 ```sh
 $ make
-$ golem your/file/here.gs
 ```
 
-Use `make DEBUG=1` to generate the debugger.
-To generate the immediate representation tool, run `make ir`.
 More features can be enabled/disabled in the Makefile.
 
 # Info
 
 For more information about the syntax see [Syntax](Syntax.md).
 This project was used in the german science competition "Jugend forscht" 2016.
+It has been ported on Nspire by Ti64CLi++.
+v1.0
 
 # Licence
 
 Licensed under GNU GPLv3.
 Copyright (c) Alexander Koch 2017
+Port by Ti64CLi++
