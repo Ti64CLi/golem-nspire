@@ -53,7 +53,7 @@ More features can be enabled/disabled in the Makefile.
 For more information about the syntax see [Syntax](Syntax.md).
 This project was used in the german science competition "Jugend forscht" 2016.
 It has been ported on Nspire by Ti64CLi++.
-v1.0
+v1.0b
 
 # Licence
 
