@@ -212,27 +212,34 @@ char* val_tostr(val_t v1) {
 }
 
 void val_print(val_t v1) {
+    char *buf = malloc(2048 * sizeof(int));
     if(IS_INT32(v1)) {
         //printf("Currently displaying an INT32...\n");
-        printf("%d", AS_INT32(v1));
+        //fprintf(stdout, "%d", AS_INT32(v1));
+        sprintf(buf, "%d", AS_INT32(v1));
     }
     else if(IS_NUM(v1)) {
         //printf("Currently displaying a NUM...\n");
-        printf("%f", AS_NUM(v1));
+        //fprintf(stdout, "%f", AS_NUM(v1));
+        sprintf(buf, "%f", AS_NUM(v1));
     }
     else if(IS_BOOL(v1)) {
         //printf("Currently displaying a BOOL...\n");
-        printf("%s", AS_BOOL(v1) ? "true" : "false");
+        //fprintf(stdout, "%s", AS_BOOL(v1) ? "true" : "false");
+        sprintf(buf, "%s", AS_BOOL(v1) ? "true" : "false");
     }
     else if(IS_OBJ(v1)) {
         obj_t* obj = AS_OBJ(v1);
         switch(obj->type) {
             case OBJ_STRING: {
                 //printf("Currently displaying a STRING...\n");
-                printf("%s", (char*)obj->data);
+                //printf("%s", (char*)obj->data);
+                sprintf(buf, "%s", (char*)obj->data);
+                //fputs((char*)obj->data, stdout);
                 break;
             }
             case OBJ_ARRAY: {
+                //TODO
                 //printf("Currently displaying an ARRAY...\n");
                 obj_array_t* arr = obj->data;
                 putchar('[');
@@ -246,13 +253,15 @@ void val_print(val_t v1) {
             }
             case OBJ_CLASS: {
                 //printf("Currently displaying a CLASS...\n");
-                printf("class<%x>", (unsigned int)v1);
+                sprintf(buf, "class<%x>", (unsigned int)v1);
                 break;
             }
             default: break;
         }
     }
     else {
-        printf("NULL");
+        sprintf(buf, "NULL");
     }
+    fputs(buf, stdout);
+    free(buf);
 }

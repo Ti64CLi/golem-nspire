@@ -24,7 +24,7 @@
 #include "compiler/graphviz.h"
 
 void print_info(void) {
-    printf("Golem compiler / Nspire port v1.0\n");
+    printf("Golem compiler / Nspire port v1.1b\n");
     printf("Copyright (c) Alexander Koch 2016\nNspire port by Ti64CLi++\n\n");
     /*printf("Usage:\n");
     printf("  golem <file>       (Run a file)\n");
@@ -48,7 +48,7 @@ int main(int argc, char** argv) {
             vm_run_args(&vm, buffer, argc, argv);
         }
         bytecode_buffer_free(buffer);
-    } else if(argc == 3) {
+    /*} else if(argc == 3) {
         if(!strcmp(argv[1], "-c")) {
             // Compile to bytecode
             vector_t* buffer = compile_file(argv[2]);
@@ -89,7 +89,7 @@ int main(int argc, char** argv) {
         } else {
             printf("Flag: '%s' is invalid\n\n", argv[1]);
             return 1;
-        }
+        }*/
     } else {
         print_info();
     }

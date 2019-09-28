@@ -13,7 +13,7 @@ Helper functions for standard libraries
 
 #define USE_MEM_IMPLEMENTATION
 #define GOLEM_API __declspec(dllexport)
-#include <core/api.h>
+#include "../core/api.h"
 
 #else
 #define GOLEM_API

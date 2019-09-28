@@ -4,6 +4,7 @@
 #include "libdef.h"
 #include "../vm/vm.h"
 #include <time.h>
+#include <nspireio/nspireio.h>
 extern float strtof(const char* str, char** endptr);
 
 int corelib_fn_count = 7;
@@ -33,7 +34,8 @@ void core_println(vm_t* vm) {
 void core_getline(vm_t* vm) {
 	// Get input to buffer
 	char buf[512];
-	fgets(buf, sizeof(buf), stdin);
+	//fgets(buf, sizeof(buf), stdin);
+	nio_fgets(buf, sizeof(buf), nio_get_default());
     vm_register(vm, STRING_VAL(buf));
 }
 
