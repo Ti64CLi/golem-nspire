@@ -40,7 +40,6 @@ int main(int argc, char** argv) {
             vm_run_args(&vm, buffer, argc, argv);
         }
         bytecode_buffer_free(buffer);
-        }*/
     } else {
     	//regsiter extensions
     	cfg_register_fileext("gs", "golem-nspire");

@@ -89,6 +89,7 @@ typedef enum {
     TOKEN_IF,
     TOKEN_ELSE,
     TOKEN_WHILE,
+    TOKEN_FOR, // beginning of for-loop support
     TOKEN_TYPE,
     TOKEN_RETURN,
     TOKEN_NONE,

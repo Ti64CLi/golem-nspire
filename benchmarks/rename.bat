@@ -1,0 +1,1 @@
+rename *.gs *.gs.tns

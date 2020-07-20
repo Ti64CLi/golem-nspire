@@ -1,7 +1,7 @@
 // Copyright (C) 2017 Alexander Koch
 #include "lexer.h"
 
-const char* token_string(token_type_t type) {
+const char* token_string(token_type_t type) { //convert token to corresponding string
     switch(type) {
         case TOKEN_EOF: return "<eof>";
         case TOKEN_NEWLINE: return "newline";
@@ -36,7 +36,7 @@ const char* token_string(token_type_t type) {
         case TOKEN_GREATER: return ">";
         case TOKEN_AND: return "&&";
         case TOKEN_OR: return "||";
-        case TOKEN_BITAND: return "&>";
+        case TOKEN_BITAND: return "&>"; //perhaps a typo ?
         case TOKEN_BITOR: return "|";
         case TOKEN_BITXOR: return "^";
         case TOKEN_BITNOT: return "~";
@@ -51,6 +51,7 @@ const char* token_string(token_type_t type) {
         case TOKEN_IF: return "if";
         case TOKEN_ELSE: return "else";
         case TOKEN_WHILE: return "while";
+        case TOKEN_FOR: return "for"; // beginning of for-loop support
         case TOKEN_TYPE: return "type";
         case TOKEN_RETURN: return "return";
         case TOKEN_NONE: return "None";
@@ -58,9 +59,9 @@ const char* token_string(token_type_t type) {
     }
 }
 
-void lex_error(lexer_t* lexer, const char* err) {
+void lex_error(lexer_t* lexer, const char* err) { // obviously for displaying errors
     lexer->error = 1;
-    printf("%s:%d:%d (Lexis): %s\n", lexer->name, lexer->location.line, lexer->location.column, err);
+    printf("Error in file '%s' at line %d column %d :\n(Lexis): %s\n", lexer->name, lexer->location.line, lexer->location.column, err);
 }
 
 #define RESERVED_ENTRY(w, t) {w, sizeof(w) - 1, t}
@@ -79,6 +80,7 @@ token_type_t keywords[] = {
     TOKEN_IF,
     TOKEN_ELSE,
     TOKEN_WHILE,
+    TOKEN_FOR, // beginning of for-loop support
     TOKEN_TYPE,
     TOKEN_RETURN,
     TOKEN_NONE,
@@ -116,7 +118,7 @@ int is_special(char c) {
     }
 }
 
-void lex_skip_space(lexer_t* lexer) {
+void lex_skip_space(lexer_t* lexer) { // skip comments and spaces/tabs
     if(*lexer->cursor == '#') {
         while(*lexer->cursor != '\n' && *lexer->cursor != '\r') {
             lexer->cursor++;

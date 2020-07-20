@@ -3,6 +3,6 @@
 using core
 using io
 
-let file = File("/documents/golem/vars.gs.tns")
+let file = File("vars.gs")
 let content = file.read()
 println(content)
