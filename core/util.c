@@ -76,12 +76,26 @@ unsigned long djb2(unsigned char *str) {
     return hash;
 }
 
-char* readFile(const char* path) {
-    FILE* file = fopen(path, "rb");
-    if(!file){
-        printf("Could not open file \"%s\".\n", path);
-        return 0;
+/*FILE *openFile(const char* path, const char* mode) {
+    FILE *file = fopen(path, mode);
+    if(!file) { //try with adding '.tns' ext
+        char *buf = NULL;
+        buf = concat(path, ".tns");
+        //buf = calloc(strlen(path) + 4, sizeof(char));
+        if(!buf) return 0; //couldn't allocate
+
+        /*strcpy(buf, path);
+        strcat(buf, ".tns");* /
+        file = fopen(buf, "rb");
+        if(!file) return 0; //file doesn't exist at all
     }
+
+    return file;
+}*/
+
+char* readFile(const char* path) {
+    FILE *file = fopen(path, "rb");
+    if(!file) return 0;
 
     // Get the size of the file
     fseek(file, 0, SEEK_END);

@@ -4,7 +4,10 @@
 #include "libdef.h"
 #include "../vm/vm.h"
 #include <time.h>
-#include <nspireio/nspireio.h>
+
+#define SET(x, bit) (x |= (1<<bit))
+#define RESET(x, bit) (x &= ~(1<<bit))
+
 extern float strtof(const char* str, char** endptr);
 
 int corelib_fn_count = 7;
@@ -22,6 +25,7 @@ int corelib_fn_count = 7;
 
 void core_print(vm_t* vm) {
 	val_print(vm_pop(vm));
+	fflush(stdout); //perhaps adding it in val_print instead of here ?
 	vm_push(vm, NULL_VAL);
 }
 
@@ -34,8 +38,11 @@ void core_println(vm_t* vm) {
 void core_getline(vm_t* vm) {
 	// Get input to buffer
 	char buf[512];
-	//fgets(buf, sizeof(buf), stdin);
-	nio_fgets(buf, sizeof(buf), nio_get_default());
+	fgets(buf, sizeof(buf), stdin);
+	int c;
+	while ((c = getchar()) != '\n' && c != EOF) {
+    	continue;
+	}
     vm_register(vm, STRING_VAL(buf));
 }
 
@@ -50,7 +57,8 @@ void core_break(vm_t* vm) {
 }
 
 void core_clock(vm_t* vm) {
-	int clocktime = (int)(*(unsigned int*)0x90090000);
+	//double clocktime = (double)clock() / (double)CLOCKS_PER_SEC;
+	double clocktime = (double)(*(unsigned int *)0x90090000); //add proper support for timer ? (instead of RTC)
     vm_push(vm, NUM_VAL(clocktime));
 }
 

@@ -83,7 +83,7 @@ void parser_throw(parser_t* parser, const char* format, ...) {
     parser->error = 1;
     location_t loc = get_location(parser);
 
-    printf("Error in file %s at line %d column %d\n(Syntax): ", parser->name, loc.line, loc.column);
+    printf("%s:%d:%d (Syntax): ", parser->name, loc.line, loc.column);
     va_list argptr;
     va_start(argptr, format);
     vprintf(format, argptr);

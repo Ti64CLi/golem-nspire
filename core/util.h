@@ -32,6 +32,7 @@ char* strf(const char* fmt, ...);
 unsigned long djb2(unsigned char* str);
 
 // File reading methods
+//FILE *openFile(const char* path, const char* mode); //for compatibility with nspire
 char* readFile(const char* path);
 char* replaceExt(char* filename, const char* ext, size_t len);
 char* getDirectory(const char* path);

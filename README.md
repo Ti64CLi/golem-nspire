@@ -46,6 +46,8 @@ A Makefile is used to build the compiler.
 $ make
 ```
 
+Then transfer the golem-nspire.tns file to your Nspire.
+
 More features can be enabled/disabled in the Makefile.
 
 # Info
@@ -53,7 +55,7 @@ More features can be enabled/disabled in the Makefile.
 For more information about the syntax see [Syntax](Syntax.md).
 This project was used in the german science competition "Jugend forscht" 2016.
 Nspire port by Ti64CLi++
-v1.1b
+v2.0b
 
 # Licence
 

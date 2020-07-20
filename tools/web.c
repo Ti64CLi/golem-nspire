@@ -1,7 +1,7 @@
 // Copyright (C) 2017 Alexander Koch
-#include <compiler/compiler.h>
-#include <core/util.h>
-#include <vm/vm.h>
+#include "../compiler/compiler.h"
+#include "../core/util.h"
+#include "../vm/vm.h"
 
 int golem_interpret(const char* module, char* source) {
     seed_prng(time(0));

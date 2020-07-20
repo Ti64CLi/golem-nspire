@@ -1,45 +1,26 @@
-# Makefile for the golem programming language
-# @Author Alexander Koch 2016
-CC := nspire-gcc
-LD := nspire-ld
-MODULE_EXEC := golem
-MODULE_IR := golem-ir
-INC := -I.
-PREFIX := /usr/local
-EXE := golem
+DEBUG = FALSE
 
-# Run `make DEBUG=1` to build the debug version
+GCC = nspire-gcc
+#AS  = nspire-as
+#GXX = nspire-g++
+LD  = nspire-ld
+GENZEHN = genzehn
+INC = -I.
 
-# Linux:
-# _msize is not available, set the -DNO_MEMINFO flag
-# to disable the memory usage tracker.
+#GCCFLAGS = -W -Wall -marm
+GCCFLAGS = -std=c99 -W -Wall -Wextra -Wno-unused-function -Wno-unused-parameter -marm
+LDFLAGS = -Wl,-lm,--nspireio,--gc-sections
+#LDFLAGS = -Wl,--nspireio,--gc-sections
+ZEHNFLAGS = --name "golem-nspire" --author "Ti64CLi++"
 
-# Golem flags / Options:
-# Disable:
-#   -DNO_AST	 	<-- Prints out the abstract syntax tree
-#   -DNO_IR		 	<-- Prints out immediate representation (bytecode)
-#   -DNO_EXEC		<-- Bytecode is not executed
-#	-DNO_MEMINFO 	<-- Disables info on memory usage
-# Enable:
-#   -DTRACE	  		<-- While bytecode is executed, stack + instructions are printed
-#   -DTRACE_STEP 	<-- When TRACE is set, step through every instruction
-#   -DDB_VARS		<-- Debugs all variables by printing a message
-#   -DDB_EVAL		<-- Debugs every ast evaluation
-
-# C - compiler flags :: use c99
-CFLAGS := -std=c99 -Wall -Wextra -Wno-unused-function -Wno-unused-parameter
-LDFLAGS := -Wl,--nspireio,--gc-sections
-ZEHNFLAGS = --name "colors"
-
-DEBUG ?= 0
-ifeq ($(DEBUG), 1)
-	CFLAGS += -O2 -g
-	MODULE_EXEC = golem-debug
+ifeq ($(DEBUG),FALSE)
+	#GCCFLAGS += -Os
+	GCCFLAGS += -O3 -fno-gcse -fno-crossjumping -DNO_IR -DNO_MEMINFO -DNO_AST
 else
-	CFLAGS += -O3 -fno-gcse -fno-crossjumping -DNO_IR -DNO_MEMINFO -DNO_AST
+	#GCCFLAGS += -O0 -g
+	GCCFLAGS += -O2 -g
 endif
 
-# All files for the compiler
 FILES := adt/bytebuffer.c \
 		adt/hashmap.c \
 		adt/list.c \
@@ -61,42 +42,58 @@ FILES := adt/bytebuffer.c \
 		vm/vm.c
 
 OBJDIR := bin
-OBJ := $(FILES:.c=.o)
-OBJECTS := $(addprefix $(OBJDIR)/, $(notdir $(OBJ)))
+OBJS := $(FILES:.c=.o)
+OBJECTS := $(addprefix $(OBJDIR)/, $(notdir $(OBJS)))
 
-# Main executable
-all: $(EXE)
-	genzehn --input $(EXE) --output $(EXE).tns $(ZEHNFLAGS)
+#OBJS = $(patsubst %.c, %.o, $(shell find . -name \*.c))
+#OBJS += $(patsubst %.cpp, %.o, $(shell find . -name \*.cpp))
+#OBJS += $(patsubst %.S, %.o, $(shell find . -name \*.S))
+EXE = golem-nspire
+DISTDIR = .
+vpath %.tns $(DISTDIR)
+vpath %.elf $(DISTDIR)
 
-#$(EXE): $(OBJDIR) $(OBJ) main.o
-#	@$(CC) $(CFLAGS) $(OBJECTS) $(OBJDIR)/main.o -o $(MODULE_EXEC) $(LDFLAGS)
-$(EXE): $(OBJDIR) $(OBJ) main.o
-	@$(CC) $(CFLAGS) $(OBJECTS) $(OBJDIR)/main.o -o $(MODULE_EXEC) $(LDFLAGS)
+all: $(EXE).tns
 
 # Immediate representation tool / print .gvm bytecode
-ir: $(OBJDIR) $(OBJ)
+ir: $(OBJDIR) $(OBJS)
 	@echo tools/ir.c
 	@$(CC) $(CFLAGS) $(INC) -c tools/ir.c -o $(OBJDIR)/ir.o
 	@$(CC) $(LDFLAGS) $(OBJECTS) $(OBJDIR)/ir.o -o $(MODULE_IR)
 
-clean:
-	rm -f */*.o
-
-%.o: %.c
-	@echo $<
-	@$(CC) $(CFLAGS) $(INC) -c $< -o $(OBJDIR)/$(notdir $@) $(LDFLAGS)
-
 $(OBJDIR):
 	@test -d $@ || mkdir $@
 
-install: all
-	install $(MODULE_EXEC) $(PREFIX)/bin
+%.o: %.c
+	$(GCC) $(GCCFLAGS) $(INC) -c $< -o $(OBJDIR)/$(notdir $@)
 
-uninstall:
-	rm $(PREFIX)/bin/$(MODULE_EXEC)
+#%.o: %.cpp
+#	$(GXX) $(GCCFLAGS) -c $< -o $@
+	
+#%.o: %.S
+# 	$(AS) -c $< -o $@
+
+$(EXE).elf: $(OBJDIR) $(OBJS) main.o
+	mkdir -p $(DISTDIR)
+	$(LD) $(OBJECTS) $(OBJDIR)/main.o -o $@ $(LDFLAGS)
+
+$(EXE).tns: $(EXE).elf
+	$(GENZEHN) --input $^ --output $@.zehn $(ZEHNFLAGS)
+	make-prg $@.zehn $@
+	rm $@.zehn
+
+clean:
+	rm -f $(OBJECTS) $(DISTDIR)/$(EXE).tns $(DISTDIR)/$(EXE).elf 
+	#$(DISTDIR)/$(EXE).tns.zehn
+
+#install: all
+#	install $(MODULE_EXEC) $(PREFIX)/bin
+
+#uninstall:
+#	rm $(PREFIX)/bin/$(MODULE_EXEC)
 
 # Graphviz *.dot to *.svg
-dot:
-	dot -Tsvg -o ast.svg ast.dot
+#dot:
+#	dot -Tsvg -o ast.svg ast.dot
 
-.PHONY: clean install uninstall
+#.PHONY: clean install uninstall

@@ -26,7 +26,8 @@ void io_writeFile(vm_t* vm) {
 	char* content = AS_STRING(vm_pop(vm));
 	char* filename = AS_STRING(vm_pop(vm));
 
-	FILE* fp = fopen(filename, mode);
+	//FILE* fp = fopen(filename, mode);
+	FILE *fp = fopen(filename, mode);
 	if(fp) {
         fprintf(fp, "%s", content);
     	fclose(fp);

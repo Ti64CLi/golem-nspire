@@ -1,7 +1,7 @@
 // Copyright (C) 2017 Alexander Koch
 #include <stdio.h>
-#include <compiler/serializer.h>
-#include <vm/bytecode.h>
+#include "../compiler/serializer.h"
+#include "../vm/bytecode.h"
 
 int main(int argc, char **argv) {
 	if(argc != 2) {
