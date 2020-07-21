@@ -54,6 +54,7 @@ More features can be enabled/disabled in the Makefile.
 
 For more information about the syntax see [Syntax](Syntax.md).
 This project was used in the german science competition "Jugend forscht" 2016.
+
 Nspire port by Ti64CLi++
 v2.0b
 
@@ -61,4 +62,5 @@ v2.0b
 
 Licensed under GNU GPLv3.
 Copyright (c) Alexander Koch 2017
+
 Port by Ti64CLi++
